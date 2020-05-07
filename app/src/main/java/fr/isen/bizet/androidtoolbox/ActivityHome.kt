@@ -35,5 +35,10 @@ class ActivityHome : AppCompatActivity() {
             editor.apply()
         }
 
+        saveButton.setOnClickListener {
+            val intent = Intent(this, ActivitySave::class.java)
+            startActivity(intent)
+        }
+
     }
 }

@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ActivityLifeCycle" />
         <activity android:name=".ActivityHome" />
+        <activity android:name=".ActivitySave" />
         <activity android:name=".ActivityLogin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
