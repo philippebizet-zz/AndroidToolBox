@@ -2,6 +2,7 @@ package fr.isen.bizet.androidtoolbox
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_life_cycle.*
 import android.widget.Toast
 
@@ -30,8 +31,7 @@ class ActivityLifeCycle : AppCompatActivity(){
 
     override fun onStop() {
         super.onStop()
-        texte += "onStop()\n"
-        lifeCycleTextView.text = texte
+        Log.i("ActivityLifeCycle","Activité stoppée")
     }
 
     override fun onDestroy() {

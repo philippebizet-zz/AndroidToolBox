@@ -21,18 +21,60 @@ import kotlinx.android.synthetic.main.activity_permissions.*
 
 
 class ActivityPermissions :  AppCompatActivity()  {
-    private lateinit var linearLayoutManager: LinearLayoutManager
 
     val contacts = mutableListOf<String>()
+
+    val list = listOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.READ_CONTACTS,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    )
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permissions)
 
+        checkPermissions()
+
         loadContacts()
 
-        imageView.setOnClickListener {
+        imageCamera.setOnClickListener {
             showPictureDialog()
+        }
+    }
+
+    fun checkPermissions() {
+        if (isPermissionsGranted() != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions()
+        }
+    }
+
+    private fun isPermissionsGranted(): Int {
+        var counter = 0
+        for (permission in list) {
+            counter += ContextCompat.checkSelfPermission(this, permission)
+        }
+        return counter
+    }
+
+    private fun deniedPermission(): String {
+        for (permission in list) {
+            if (ContextCompat.checkSelfPermission(this, permission)
+                == PackageManager.PERMISSION_DENIED
+            ) return permission
+        }
+        return ""
+    }
+
+    private fun requestPermissions() {
+        val permission = deniedPermission()
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+        } else {
+            ActivityCompat.requestPermissions(this, list.toTypedArray(), 1)
         }
     }
 
@@ -108,10 +150,10 @@ class ActivityPermissions :  AppCompatActivity()  {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == 1000) {
-            imageView.setImageURI(data?.data)
+            imageCamera.setImageURI(data?.data)
         } else if (resultCode == Activity.RESULT_OK && requestCode == 1001) {
             val bmp = data?.extras?.get("data") as Bitmap
-            imageView.setImageBitmap(bmp)
+            imageCamera.setImageBitmap(bmp)
         }
     }
 }

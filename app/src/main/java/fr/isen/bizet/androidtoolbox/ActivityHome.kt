@@ -19,7 +19,7 @@ class ActivityHome : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val PermissionsRequestCode = 1
+        /*val PermissionsRequestCode = 1
         lateinit var activatePermissions: ActivatePermissions
 
         val list = listOf(
@@ -32,7 +32,7 @@ class ActivityHome : AppCompatActivity() {
 
         activatePermissions = ActivatePermissions(this,list,PermissionsRequestCode)
 
-        activatePermissions.checkPermissions()
+        activatePermissions.checkPermissions()*/
 
         sharedPreferences = getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
 
@@ -43,12 +43,12 @@ class ActivityHome : AppCompatActivity() {
 
         decoButton.setOnClickListener {
             Toast.makeText(applicationContext, "Déconnexion réussi !", Toast.LENGTH_SHORT).show()
-            this.finish()
             val intent = Intent(this, ActivityLogin::class.java)
-            startActivity(intent)
             val editor = sharedPreferences.edit()
             editor.clear()
             editor.apply()
+            this.finish()
+            startActivity(intent)
         }
 
         saveButton.setOnClickListener {
