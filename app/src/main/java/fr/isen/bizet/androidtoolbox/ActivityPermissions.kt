@@ -26,10 +26,8 @@ class ActivityPermissions :  AppCompatActivity()  {
 
     val list = listOf(
         Manifest.permission.CAMERA,
-        Manifest.permission.READ_CONTACTS,
         Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.ACCESS_FINE_LOCATION
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
 
 
@@ -38,12 +36,11 @@ class ActivityPermissions :  AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permissions)
 
-        checkPermissions()
-
         loadContacts()
 
         imageCamera.setOnClickListener {
             showPictureDialog()
+            checkPermissions()
         }
     }
 
@@ -119,6 +116,7 @@ class ActivityPermissions :  AppCompatActivity()  {
                 arrayOf(Manifest.permission.READ_CONTACTS),
                 1
             )
+            loadContacts()
         } else {
             getContacts()
             listContact.adapter = ContactRecyclerView(contacts.sorted())

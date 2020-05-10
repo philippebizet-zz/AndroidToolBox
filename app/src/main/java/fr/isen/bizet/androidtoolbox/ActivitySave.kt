@@ -43,16 +43,20 @@ class ActivitySave : AppCompatActivity(){
                 val today = Calendar.getInstance()
                 date.text = sdf.format(cal.time)
 
-                how_old = today.get(Calendar.YEAR) - cal.get(Calendar.YEAR)
-
-                if (today.get(Calendar.DAY_OF_YEAR) < cal.get(Calendar.DAY_OF_YEAR))
-                    how_old--
+                calculAge(today, cal)
 
             }
 
         date.setOnClickListener {
             showDatePicker(dateSetListener)
         }
+    }
+
+    private fun calculAge(today: Calendar, cal: Calendar) {
+        how_old = today.get(Calendar.YEAR) - cal.get(Calendar.YEAR)
+
+        if (today.get(Calendar.DAY_OF_YEAR) < cal.get(Calendar.DAY_OF_YEAR))
+            how_old--
     }
 
     private fun showDatePicker(dateSetListener: DatePickerDialog.OnDateSetListener) {
@@ -72,10 +76,11 @@ class ActivitySave : AppCompatActivity(){
         val lastName = jsonObject.optString(KEY_LAST_NAME)
         val firstName = jsonObject.optString(KEY_FIRST_NAME)
         val date = jsonObject.optString(KEY_BIRTH_DATE)
+        val age = jsonObject.optString(KEY_AGE)
 
         AlertDialog.Builder(this)
             .setTitle("Lecture du fichier")
-            .setMessage("Nom : $lastName \nPrénom : $firstName \nDate : $date \nAge : $how_old")
+            .setMessage("Nom : $lastName \nPrénom : $firstName \nDate : $date \nAge : $age")
             .create()
             .show()
     }
@@ -85,6 +90,7 @@ class ActivitySave : AppCompatActivity(){
         jsonObject.put(KEY_LAST_NAME, lastName)
         jsonObject.put(KEY_FIRST_NAME, firstName)
         jsonObject.put(KEY_BIRTH_DATE, birthDate)
+        jsonObject.put(KEY_AGE,how_old)
 
         val data = jsonObject.toString()
         File(cacheDir.absolutePath, "my_file.json").writeText(data)
@@ -94,5 +100,6 @@ class ActivitySave : AppCompatActivity(){
         private const val KEY_LAST_NAME = "lastname"
         private const val KEY_FIRST_NAME = "firstname"
         private const val KEY_BIRTH_DATE = "date"
+        private const val KEY_AGE = "age"
     }
 }
