@@ -19,21 +19,6 @@ class ActivityHome : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        /*val PermissionsRequestCode = 1
-        lateinit var activatePermissions: ActivatePermissions
-
-        val list = listOf(
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_CONTACTS,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        )
-
-        activatePermissions = ActivatePermissions(this,list,PermissionsRequestCode)
-
-        activatePermissions.checkPermissions()*/
-
         sharedPreferences = getSharedPreferences(USER_PREFS, Context.MODE_PRIVATE)
 
         lifeCycleButton.setOnClickListener {
@@ -58,6 +43,11 @@ class ActivityHome : AppCompatActivity() {
 
         permissionsButton.setOnClickListener {
             val intent = Intent(this, ActivityPermissions::class.java)
+            startActivity(intent)
+        }
+
+        webservButton.setOnClickListener {
+            val intent = Intent(this, WebServActivity::class.java)
             startActivity(intent)
         }
 

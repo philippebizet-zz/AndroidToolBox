@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ActivityLifeCycle" />
+        <activity android:name=".WebServActivity" />
         <activity android:name=".ActivityHome" />
         <activity android:name=".ActivityPermissions" />
         <activity android:name=".ActivitySave" />
